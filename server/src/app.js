@@ -3,15 +3,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-
+const mongoose = require('mongoose')
 const app = express()
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://bexxpants:openseaseame18@ds117758.mlab.com:17758/doverusers');
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback){
-  console.log("Connection Succeeded");
-});
+
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
@@ -24,4 +18,12 @@ app.get('/posts', (req, res) => {
   )
 })
 
+// connect to db
+
+
 app.listen(process.env.PORT || 8081)
+
+const db = 'mongodb://master:password@ds117758.mlab.com:17758/doverusers';
+mongoose.connect(db);
+const conn = mongoose.connection;
+conn.once('open', () => console.log('connected'));
