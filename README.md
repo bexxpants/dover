@@ -4,16 +4,28 @@ freelance developer hiring application
 
 User Stories:
 
-Can create a developer account.
+     - Can create a developer account.
 
-Can create a hiring party account.
+     - Can create a hiring party account.
 
-can securely log into accounts.
+     - can securely log into accounts.
 
-Accounts have dashboards to change bio and resume information.
+     - Accounts have dashboards to change bio and resume information.
 
-Can search by name and sort by type.
+     - Can search by name and sort by type.
 
-Provide verified rating system.
+     - Provide verified rating system.
 
-Can also sort by rating.
+     - Can also sort by rating.
+
+     - Can see two buttons one for "Create projects" and other for "Work as freelancer"
+
+     - Freelancers can see projects created
+
+     - Freelancers can offer proposals to participate in projects
+
+     - Project owners can see proposals for his projects
+
+     - Project owners can choose a proposal
+
+     - When a deal is make project owners and freelancers can exchange messages
