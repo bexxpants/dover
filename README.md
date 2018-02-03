@@ -17,3 +17,5 @@ Brainstorming User Stories:
 - Project owners can see proposals for his projects
 - Project owners can choose a proposal
 - When a deal is make project owners and freelancers can exchange messages
+- I can login and sign up with Facebook, Google and GitHub
+- Project owners can choose between different categories for his project
