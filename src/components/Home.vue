@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <div id="logo">Logo</div>
-    <button class="ui primary button">Create a project</button>
-    <button class="ui primary button">Work as a freelancer</button>
+  <div class="ui vertical masthead center aligned segment">
+    <div class="ui text container">
+      <h1 class="ui header">Logo</h1>
+      <h2>Some type of slogan going here</h2>
+      <button class="ui huge primary button">Create a project</button>
+      <button class="ui huge primary button">Work as a freelancer</button>
+    </div>
   </div>
 </template>
 
@@ -13,11 +16,10 @@ export default {
 </script>
 
 <style scoped>
-#logo {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-  margin-bottom: 50px;
-  border: 5px solid black;
+.ui.header {
+  margin-top: 5em;
+}
+.ui.text.container {
+  margin-bottom: 8em;
 }
 </style>

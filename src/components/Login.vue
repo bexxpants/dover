@@ -36,3 +36,10 @@ export default {
   name: 'Login',
 };
 </script>
+
+<style scoped>
+.ui.center.aligned.grid {
+  margin-top: 5em;
+  margin-bottom: 5em;
+}
+</style>
