@@ -17,9 +17,9 @@
             </div>
           </div>
           <div class="field">
-            <div class="ui button">Login</div>
-            <div class="ui red button">Google</div>
-            <div class="ui button primary">Facebook</div>
+            <a class="ui button">Login</a>
+            <a class="ui red button">Google</a>
+            <a class="ui button primary">Facebook</a>
           </div>
         </div>
       </div>
