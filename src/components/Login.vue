@@ -17,7 +17,16 @@
             </div>
           </div>
           <div class="field">
-            <a class="ui button">Login</a>
+            <button class="ui button">Login</button>
+          </div>
+        </div>
+        <div class="ui header">Or login with:</div>
+        <div class="ui raised segment">
+          <div class="field">
+            <a class="ui github button">
+              <i class="github icon"></i>
+              GitHub
+            </a>
             <a class="ui google plus button">
               <i class="google plus icon"></i>
               Google
@@ -28,10 +37,6 @@
             </a>
           </div>
         </div>
-      </div>
-      <div class="ui message">
-        New user?
-        <router-link to="/" tag="button" class="ui button primary">Sign up</router-link>
       </div>
     </div>
   </div>
