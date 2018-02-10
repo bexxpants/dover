@@ -3,7 +3,7 @@
     <div class="eight wide column">
       <div class="ui header">Login to your account</div>
       <div class="ui large form">
-        <div class="ui stacked segment">
+        <div class="ui raised segment">
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
@@ -18,8 +18,14 @@
           </div>
           <div class="field">
             <a class="ui button">Login</a>
-            <a class="ui red button">Google</a>
-            <a class="ui button primary">Facebook</a>
+            <a class="ui google plus button">
+              <i class="google plus icon"></i>
+              Google
+            </a>
+            <a class="ui facebook button">
+              <i class="facebook icon"></i>
+              Facebook
+            </a>
           </div>
         </div>
       </div>

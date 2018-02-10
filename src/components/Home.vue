@@ -4,7 +4,7 @@
       <h1 class="ui header">Logo</h1>
       <h2>Some type of slogan going here</h2>
       <button class="ui huge primary button">Create a project</button>
-      <button class="ui huge primary button">Work as a freelancer</button>
+      <button class="ui huge secondary button">Work as a freelancer</button>
     </div>
   </div>
 </template>
