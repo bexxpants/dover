@@ -1,9 +1,9 @@
 <template>
-  <div class="ui menu">
+  <div class="ui secondary menu">
     <a href="#" class="header item">dover</a>
     <div class="right menu">
-      <a href="#" class="ui item">Sign up</a>
-      <a href="#" class="ui item">Login</a>
+      <button href="#" class="ui button primary">Sign up</button>
+      <button href="#" class="ui button">Login</button>
     </div>
   </div>
 </template>
@@ -18,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.ui.menu {
+  padding: 5px;
+}
+</style>
