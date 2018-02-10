@@ -1,9 +1,9 @@
 <template>
   <div class="ui secondary menu">
-    <a href="#" class="header item">dover</a>
+    <router-link to="/" class="header item">dover</router-link>
     <div class="right menu">
-      <button href="#" class="ui button primary">Sign up</button>
-      <button href="#" class="ui button">Login</button>
+      <router-link to="#" class="ui button primary">Sign up</router-link>
+      <router-link to="login" tag ="button" class="ui button">Login</router-link>
     </div>
   </div>
 </template>
@@ -11,11 +11,6 @@
 <script>
 export default {
   name: 'Header',
-  data() {
-    return {
-
-    };
-  },
 };
 </script>
 
