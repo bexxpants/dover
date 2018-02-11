@@ -1,45 +1,44 @@
 <template>
-  <div class="ui center aligned grid">
-    <div class="eight wide column">
+  <sui-grid class="center aligned">
+    <sui-grid-column :width=8>
       <div class="ui header">Login to your account</div>
-      <div class="ui large form">
-        <div class="ui raised segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" name="email" placeholder="E-mail address">
-            </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" name="password" placeholder="Password">
-            </div>
-          </div>
-          <div class="field">
+      <sui-form>
+        <sui-segment raised>
+          <sui-form-field>
+            <sui-input
+              placeholder="E-mail address"
+              icon="user"
+              iconPosition="left">
+            </sui-input>
+          </sui-form-field>
+          <sui-form-field>
+            <sui-input
+              placeholder="Password"
+              icon="lock"
+              iconPosition="left">
+            </sui-input>
+          </sui-form-field>
+          <sui-form-field>
             <button class="ui button">Login</button>
-          </div>
-        </div>
+          </sui-form-field>
+        </sui-segment>
         <div class="ui header">Or login with:</div>
-        <div class="ui raised segment">
-          <div class="field">
-            <a class="ui github button">
-              <i class="github icon"></i>
+        <sui-segment raised>
+          <sui-form-field>
+            <sui-button color="black" icon="github">
               GitHub
-            </a>
-            <a class="ui google plus button">
-              <i class="google plus icon"></i>
+            </sui-button>
+            <sui-button icon="google plus" class="google plus">
               Google
-            </a>
-            <a class="ui facebook button">
-              <i class="facebook icon"></i>
+            </sui-button>
+            <sui-button icon="facebook" class="facebook">
               Facebook
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            </sui-button>
+          </sui-form-field>
+        </sui-segment>
+      </sui-form>
+    </sui-grid-column>
+  </sui-grid>
 </template>
 
 <script>
