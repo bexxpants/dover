@@ -2,24 +2,35 @@
   <sui-grid class="center aligned">
     <sui-grid-column :width=8>
       <div class="ui header">Sign up</div>
-      <sui-form>
+      <sui-form >
         <sui-segment raised>
           <sui-form-field>
-            <sui-input
+            <sui-input v-model="email" type="email" name="email" vee-validate="'required|email'"
               placeholder="E-mail address"
               icon="user"
               iconPosition="left">
             </sui-input>
+            <span v-show="errors.has('email')">{{ errors.first('email') }}</span>
           </sui-form-field>
           <sui-form-field>
             <sui-input
+              v-model="password"
+              type="password"
+              name="password"
               placeholder="Password"
               icon="lock"
               iconPosition="left">
             </sui-input>
           </sui-form-field>
           <sui-form-field>
-            <sui-button>Sign Up</sui-button>
+            <sui-input
+              placeholder="Repeat Password"
+              icon="lock"
+              iconPosition="left">
+            </sui-input>
+          </sui-form-field>
+          <sui-form-field>
+            <sui-button type="submit" @click="addUser">Sign Up</sui-button>
           </sui-form-field>
         </sui-segment>
         <div class="ui header">Or sign up with:</div>
@@ -42,9 +53,25 @@
 </template>
 
 <script>
+import Api from '@/services/Api';
+
 export default {
   name: 'SignUp',
+  data() {
+    return {
+      username: '',
+      password: '',
+      email: '',
+    };
+  },
+  methods: {
+    addUser() {
+      Api().post('/signup', { username: 'alex', email: this.email, password: this.password });
+    },
+  },
 };
+
+
 </script>
 
 <style>

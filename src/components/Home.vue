@@ -25,13 +25,16 @@
         <div class="four wide column">
           <div class="ui center segment">
             <h3>Review Proposals</h3>
-            <p>Proposals will appear in your dashboard with all nessicary details.  Choose the freelancer thats right for you.</p>
+            <p>Proposals will appear in your dashboard with all
+               nessicary details.  Choose the freelancer thats right for you.</p>
           </div>
         </div>
         <div class="four wide column">
           <div class="ui center segment">
             <h3>See real-time progress</h3>
-            <p>Real-time progress will be availble to you so you can rest assured things are going smoothly or contact the freelancer if not</p>
+            <p>Real-time progress will be
+               availble to you so you can rest assured things
+               are going smoothly or contact the freelancer if not</p>
           </div>
         </div>
       </div>
@@ -39,7 +42,8 @@
 
   <section class="ui text container">
     <h1>Large Projects? No Problem</h1>
-    <h3>hire multiple freelancers from differnt backgrounds for one large project</h3>
+    <h3>hire multiple freelancers from differnt
+      backgrounds for one large project</h3>
   </section>
   <section class="ui text container">
     <div class="ui grid">
@@ -77,15 +81,12 @@
   </section>
 </div>
 
-
-
-
 </template>
 
 <script>
-  export default {
-    name: 'Home',
-  };
+export default {
+  name: 'Home',
+};
 </script>
 
 <style scoped>
