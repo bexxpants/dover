@@ -5,7 +5,11 @@
       <sui-form >
         <sui-segment raised>
           <sui-form-field>
-            <sui-input v-model="email" type="email" name="email" vee-validate="'required|email'"
+            <sui-input
+              v-model="email"
+              type="email"
+              name="email"
+              vee-validate="'required|email'"
               placeholder="E-mail address"
               icon="user"
               iconPosition="left">
@@ -23,14 +27,11 @@
             </sui-input>
           </sui-form-field>
           <sui-form-field>
-            <sui-input
-              placeholder="Repeat Password"
-              icon="lock"
-              iconPosition="left">
-            </sui-input>
-          </sui-form-field>
-          <sui-form-field>
-            <sui-button type="submit" @click="addUser">Sign Up</sui-button>
+            <button
+              type="submit"
+              @click="addUser"
+              class="ui button"
+            >Sign Up</button>
           </sui-form-field>
         </sui-segment>
         <div class="ui header">Or sign up with:</div>
@@ -59,19 +60,22 @@ export default {
   name: 'SignUp',
   data() {
     return {
-      username: '',
       password: '',
       email: '',
     };
   },
   methods: {
     addUser() {
-      Api().post('/signup', { username: 'alex', email: this.email, password: this.password });
+      const self = this;
+      Api().post('/users', {
+        user: {
+          email: self.email,
+          password: self.password,
+        },
+      });
     },
   },
 };
-
-
 </script>
 
 <style>
