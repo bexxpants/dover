@@ -1,21 +1,19 @@
-<template lang="html">
+<template>
   <div class="ui container">
-    <h1>Wlcome Back {{userName}}</h1>
+    <h1 class="center">Welcome Back</h1>
     <div class="ui align left">
       <img class="ui avatar image" src="/images/wireframe/square-image.png">
       <span>Username</span>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
+
 export default {
-  name: 'FreelanceDash',
+  name: 'Dashboard',
 };
 </script>
 
-<style lang="css">
+<style>
 </style>

@@ -4,8 +4,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import SignUp from '@/components/SignUp';
-import OwnerDash from '@/components/OwnerDash';
-import FreelanceDash from '@/components/FreelanceDash';
+import Dashboard from '@/components/Dashboard';
 
 Vue.use(Router);
 Vue.use(VeeValidate);
@@ -28,14 +27,9 @@ export default new Router({
       component: SignUp,
     },
     {
-      path: '/ownerdash',
-      name: 'OwnerDash',
-      component: OwnerDash,
-    },
-    {
-      path: '/freelancedash',
-      name: 'FreelanceDash',
-      component: FreelanceDash,
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard,
     },
   ],
   mode: 'history',
