@@ -54,8 +54,6 @@
 </template>
 
 <script>
-import Api from '@/services/Api';
-
 export default {
   name: 'SignUp',
   data() {
@@ -67,12 +65,14 @@ export default {
   methods: {
     addUser() {
       const self = this;
-      Api().post('/users', {
+      this.axios.post('http://localhost:8081/api/users', {
         user: {
           email: self.email,
           password: self.password,
         },
-      });
+      }).then(res => this.$store.dispatch('login', res.data.user))
+        .catch(err => window.console.log(err));
+      this.$router.push('/dashboard');
     },
   },
 };
