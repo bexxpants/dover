@@ -6,6 +6,7 @@
         <sui-segment raised>
           <sui-form-field>
             <sui-input
+              v-model="email"
               placeholder="E-mail address"
               icon="user"
               iconPosition="left">
@@ -13,13 +14,19 @@
           </sui-form-field>
           <sui-form-field>
             <sui-input
+              v-model="password"
+              type="password"
               placeholder="Password"
               icon="lock"
               iconPosition="left">
             </sui-input>
           </sui-form-field>
           <sui-form-field>
-            <button class="ui button">Login</button>
+            <button
+              class="ui button"
+              @click="submit">
+              Login
+            </button>
           </sui-form-field>
         </sui-segment>
         <div class="ui header">Or login with:</div>
@@ -44,6 +51,24 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    submit() {
+      const self = this;
+      this.axios.post('http://localhost:8081/api/auth', {
+        credentials: {
+          email: self.email,
+          password: self.password,
+        },
+      }).then(res =>
+        this.$store.dispatch('login', res.data.user));
+    },
+  },
 };
 </script>
 

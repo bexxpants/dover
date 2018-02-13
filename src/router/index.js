@@ -38,4 +38,5 @@ export default new Router({
       component: FreelanceDash,
     },
   ],
+  mode: 'history',
 });
