@@ -70,9 +70,10 @@ export default {
           email: self.email,
           password: self.password,
         },
-      }).then(res => this.$store.dispatch('login', res.data.user))
+      })
+        .then(res => this.$store.dispatch('login', res.data.user))
+        .then(() => this.$router.push('/dashboard'))
         .catch(err => window.console.log(err));
-      this.$router.push('/dashboard');
     },
   },
 };

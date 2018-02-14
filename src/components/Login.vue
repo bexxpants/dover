@@ -64,10 +64,11 @@ export default {
           email: this.email,
           password: this.password,
         },
-      }).then(res =>
-        this.$store.dispatch('login', res.data.user));
-
-      this.$router.push('/dashboard');
+      })
+        .then(res =>
+          this.$store.dispatch('login', res.data.user))
+        .then(() =>
+          this.$router.push('/dashboard'));
     },
   },
 };
