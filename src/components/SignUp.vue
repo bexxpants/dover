@@ -15,11 +15,12 @@
               v-model="email"
               type="email"
               name="email"
+              placeholder="E-mail address"
               icon="user"
               iconPosition="left">
             </sui-input>
-            <span class="errorMessage" v-if="!$v.email.required">Email is required.</span>
-            <span class="errorMessage" v-if="!$v.email.$error">Insert a valid email</span>
+            <span class="errorMessage" v-if="error && !$v.email.required">Email is required.</span>
+            <span class="errorMessage" v-if="error && $v.email.$invalid">Insert a valid email</span>
           </sui-form-field>
           <sui-form-field>
             <sui-input
@@ -30,8 +31,10 @@
               icon="lock"
               iconPosition="left">
             </sui-input>
-            <span class="errorMessage" v-if="!$v.password.required">Password is required.</span>
-            <span class="errorMessage" v-if="!$v.password.minLength">
+            <span class="errorMessage" v-if="error && !$v.password.required">
+              Password is required.
+            </span>
+            <span class="errorMessage" v-if="error && !$v.password.minLength">
               Password must have at least {{ $v.password.$params.minLength.min }} letters.
             </span>
           </sui-form-field>
@@ -110,7 +113,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ui.center.aligned.grid {
   margin-top: 5em;
   margin-bottom: 5em;

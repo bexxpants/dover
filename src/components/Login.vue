@@ -4,6 +4,12 @@
       <div class="ui header">Login to your account</div>
       <sui-form>
         <sui-segment raised>
+          <sui-message
+            v-if="errors"
+            header="Error"
+            :content=errors.global
+            icon="warning">
+          </sui-message>
           <sui-form-field>
             <sui-input
               v-model="email"
@@ -11,6 +17,12 @@
               icon="user"
               iconPosition="left">
             </sui-input>
+            <span class="errorMessage" v-if="errors && !$v.email.required">
+              Email is required.
+            </span>
+            <span class="errorMessage" v-if="errors && $v.email.$invalid">
+              Insert a valid email
+            </span>
           </sui-form-field>
           <sui-form-field>
             <sui-input
@@ -20,6 +32,9 @@
               icon="lock"
               iconPosition="left">
             </sui-input>
+            <span class="errorMessage" v-if="errors && !$v.password.required">
+              Password is required.
+            </span>
           </sui-form-field>
           <sui-form-field>
             <button
@@ -49,26 +64,53 @@
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators';
+
 export default {
   name: 'Login',
   data() {
     return {
       email: '',
       password: '',
+      errors: null,
     };
+  },
+  validations: {
+    email: {
+      email,
+      required,
+    },
+    password: {
+      required,
+    },
+  },
+  computed: {
+    isValid() {
+      return !this.$v.email.$invalid && !this.$v.password.$invalid;
+    },
   },
   methods: {
     submit() {
-      this.axios.post('http://localhost:8081/api/auth', {
-        credentials: {
-          email: this.email,
-          password: this.password,
-        },
-      })
-        .then(res =>
-          this.$store.dispatch('login', res.data.user))
-        .then(() =>
-          this.$router.push('/dashboard'));
+      if (this.isValid) {
+        this.axios.post('http://localhost:8081/api/auth', {
+          credentials: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+          .then((res) => {
+            this.$store.dispatch('login', res.data.user);
+          })
+          .then(() =>
+            this.$router.push('/dashboard'))
+          .catch((err) => {
+            window.console.log(err);
+            this.errors = err.response.data.errors;
+          });
+      } else {
+        this.errors = {};
+        this.errors.global = 'Read the error messages';
+      }
     },
   },
 };
@@ -78,5 +120,9 @@ export default {
 .ui.center.aligned.grid {
   margin-top: 5em;
   margin-bottom: 5em;
+}
+span.errorMessage {
+  color: red;
+  font-size: 0.8em;
 }
 </style>
