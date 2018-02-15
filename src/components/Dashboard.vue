@@ -20,7 +20,9 @@
         Search
       </router-link>
     </div>
-    <router-view></router-view>
+    <div class="ui bottom attached active tab segment">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
