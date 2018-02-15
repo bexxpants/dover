@@ -1,10 +1,6 @@
 <template>
   <div class="ui secondary menu">
     <router-link to="/" class="header item">dover</router-link>
-    <div class="ui icon input">
-      <input type="text" placeholder="Search...">
-      <i class="search icon"></i>
-    </div>
     <div class="right menu">
       <router-link
         to="signup"

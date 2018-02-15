@@ -1,6 +1,6 @@
 <template>
   <sui-grid class="center aligned">
-    <sui-grid-column :width=8>
+    <sui-grid-column :width=12>
       <div class="ui header">Sign up</div>
       <sui-form >
         <sui-segment raised>

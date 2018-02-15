@@ -1,10 +1,26 @@
 <template>
-  <div class="ui container">
-    <h1 class="center">Welcome Back</h1>
-    <div class="ui align left">
-      <img class="ui avatar image" src="/images/wireframe/square-image.png">
-      <span>Username</span>
+  <div is="sui-container" fluid>
+    <div class="ui top attached tabular menu">
+      <router-link
+        to="/dashboard/projects"
+        class="item"
+        active-class="active">
+        Projects
+      </router-link>
+      <router-link
+        to="/dashboard/messages"
+        class="item"
+        active-class="active">
+        Messages
+      </router-link>
+      <router-link
+        to="/dashboard/search"
+        class="item"
+        active-class="active">
+        Search
+      </router-link>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
