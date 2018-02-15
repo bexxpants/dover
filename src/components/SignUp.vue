@@ -4,17 +4,22 @@
       <div class="ui header">Sign up</div>
       <sui-form >
         <sui-segment raised>
+          <sui-message
+            v-if="error"
+            header="Error"
+            :content=error.message
+            icon="warning">
+          </sui-message>
           <sui-form-field>
             <sui-input
               v-model="email"
               type="email"
               name="email"
-              vee-validate="'required|email'"
-              placeholder="E-mail address"
               icon="user"
               iconPosition="left">
             </sui-input>
-            <span v-show="errors.has('email')">{{ errors.first('email') }}</span>
+            <span class="errorMessage" v-if="!$v.email.required">Email is required.</span>
+            <span class="errorMessage" v-if="!$v.email.$error">Insert a valid email</span>
           </sui-form-field>
           <sui-form-field>
             <sui-input
@@ -25,6 +30,10 @@
               icon="lock"
               iconPosition="left">
             </sui-input>
+            <span class="errorMessage" v-if="!$v.password.required">Password is required.</span>
+            <span class="errorMessage" v-if="!$v.password.minLength">
+              Password must have at least {{ $v.password.$params.minLength.min }} letters.
+            </span>
           </sui-form-field>
           <sui-form-field>
             <button
@@ -54,26 +63,48 @@
 </template>
 
 <script>
+import { required, minLength, email } from 'vuelidate/lib/validators';
+
 export default {
   name: 'SignUp',
   data() {
     return {
       password: '',
       email: '',
+      error: null,
     };
+  },
+  validations: {
+    email: {
+      email,
+      required,
+    },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+  },
+  computed: {
+    isValid() {
+      return !this.$v.email.$invalid && !this.$v.password.$invalid;
+    },
   },
   methods: {
     addUser() {
-      const self = this;
-      this.axios.post('http://localhost:8081/api/users', {
-        user: {
-          email: self.email,
-          password: self.password,
-        },
-      })
-        .then(res => this.$store.dispatch('login', res.data.user))
-        .then(() => this.$router.push('/dashboard'))
-        .catch(err => window.console.log(err));
+      if (this.isValid) {
+        this.axios.post('http://localhost:8081/api/users', {
+          user: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+          .then(res => this.$store.dispatch('login', res.data.user))
+          .then(() => this.$router.push('/dashboard'))
+          .catch((err) => { this.error = err.response.data.errors; });
+      } else {
+        this.error = {};
+        this.error.message = 'Please read the error messages';
+      }
     },
   },
 };
@@ -83,5 +114,9 @@ export default {
 .ui.center.aligned.grid {
   margin-top: 5em;
   margin-bottom: 5em;
+}
+span.errorMessage {
+  color: red;
+  font-size: 0.8em;
 }
 </style>

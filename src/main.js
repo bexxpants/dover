@@ -4,6 +4,7 @@ import Vue from 'vue';
 import SuiVue from 'semantic-ui-vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import Vuelidate from 'vuelidate';
 import App from './App';
 import router from './router';
 import store from './store';
@@ -11,6 +12,7 @@ import store from './store';
 Vue.config.productionTip = false;
 Vue.use(SuiVue);
 Vue.use(VueAxios, axios);
+Vue.use(Vuelidate);
 
 /* eslint-disable no-new */
 new Vue({
