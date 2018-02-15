@@ -41,7 +41,7 @@
           <sui-form-field>
             <button
               type="submit"
-              @click="addUser"
+              @click="submit"
               class="ui button"
             >Sign Up</button>
           </sui-form-field>
@@ -93,7 +93,7 @@ export default {
     },
   },
   methods: {
-    addUser() {
+    submit() {
       if (this.isValid) {
         this.axios.post('http://localhost:8081/api/users', {
           user: {
