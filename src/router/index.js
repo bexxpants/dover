@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Guard from '@/services/middleware';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import SignUp from '@/components/SignUp';
@@ -21,16 +22,19 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      beforeEnter: Guard.guest,
     },
     {
       path: '/signup',
       name: 'SignUp',
       component: SignUp,
+      beforeEnter: Guard.guest,
     },
     {
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard,
+      beforeEnter: Guard.auth,
       children: [
         {
           path: 'projects',
