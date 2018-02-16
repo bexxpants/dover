@@ -15,7 +15,7 @@
       </sui-modal-actions>
     </sui-modal>
 
-    <projectsCreated :projects=projects />
+    <projectsCreated :projects=projects id="projectList"/>
   </div>
 </template>
 
@@ -56,3 +56,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#projectList {
+  margin-top: 6em;
+  margin-bottom: 6em;
+}
+</style>
