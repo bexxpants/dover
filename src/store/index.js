@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Vuex from 'vuex';
+import setAuthorizationHeader from '../utils/setAuthorizationHeader';
 
 Vue.use(Vuex);
 
@@ -23,10 +24,12 @@ const mutations = {
 const actions = {
   login({ commit }, creds) {
     localStorage.setItem('doverToken', creds.token);
+    setAuthorizationHeader(localStorage.doverToken);
     commit(LOGIN_USER);
   },
   logout({ commit }) {
     localStorage.removeItem('doverToken');
+    setAuthorizationHeader();
     commit(LOGOUT_USER);
   }
 };

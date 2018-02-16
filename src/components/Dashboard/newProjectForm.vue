@@ -20,7 +20,7 @@
             <option value="Less than USD 50">Less than USD 50</option>
             <option value="USD 100 - 250">USD 100 - 250</option>
             <option value="USD 250 - 500">USD 250 - 500</option>
-            <option value="USD 500 - 100">USD 500 - 1000</option>
+            <option value="USD 500 - 1000">USD 500 - 1000</option>
             <option value="USD 1000 - 3000">USD 1000 - 3000</option>
             <option value="More than USD 3000">More than USD 3000</option>
           </select>

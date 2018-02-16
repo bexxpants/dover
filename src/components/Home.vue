@@ -3,7 +3,12 @@
     <div class="ui text container">
       <h1 class="ui header">Logo</h1>
       <h2>Some type of slogan going here</h2>
-      <button class="ui huge primary button">Create a project</button>
+      <router-link
+        class="ui huge primary button"
+        to="/dashboard/projects"
+      >
+        Create a project
+      </router-link>
       <button class="ui huge secondary button">Work as a freelancer</button>
     </div>
 
