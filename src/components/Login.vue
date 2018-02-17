@@ -92,7 +92,7 @@ export default {
   methods: {
     submit() {
       if (this.isValid) {
-        this.axios.post('http://localhost:8081/api/auth', {
+        this.axios.post('auth', {
           credentials: {
             email: this.email,
             password: this.password,
@@ -102,7 +102,7 @@ export default {
             this.$store.dispatch('login', res.data.user);
           })
           .then(() =>
-            this.$router.push('/dashboard'))
+            this.$router.push('/dashboard/projects'))
           .catch((err) => {
             window.console.log(err);
             this.errors = err.response.data.errors;
