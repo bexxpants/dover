@@ -5,6 +5,9 @@
         <sui-form-field>
           <label>Choose a name for your project</label>
           <input type="text" v-model="name" placeholder="E.g. Build me a logo"/>
+          <span class="errorMessage" v-if="errors && !$v.name.required">
+            Project's name is required
+          </span>
         </sui-form-field>
         <sui-form-field>
           <label>Tell us more about your project</label>
@@ -13,6 +16,9 @@
             rows="6"
             v-model="description"
             placeholder="Describe your project here" />
+          <span class="errorMessage" v-if="errors && !$v.description.required">
+            Project's description is required
+          </span>
         </sui-form-field>
         <sui-form-field class="inline">
           <label>Estimated budget</label>
@@ -29,6 +35,12 @@
             <option value="Fixed price project">Fixed price project</option>
             <option value="Hourly project">Hourly project</option>
           </select>
+          <span class="errorMessage" v-if="errors && !$v.budget.required">
+            Project's estimated budget is required
+          </span>
+          <span class="errorMessage last" v-if="errors && !$v.pay.required">
+            Project's way of pay is required
+          </span>
         </sui-form-field>
         <sui-button positive @click.native="submit">
           Publish project
@@ -39,6 +51,8 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+
 export default {
   name: 'newProjectForm',
   data() {
@@ -47,6 +61,7 @@ export default {
       description: '',
       budget: '',
       pay: '',
+      errors: false,
     };
   },
   computed: {
@@ -58,14 +73,39 @@ export default {
         pay: this.pay,
       };
     },
+    isValid() {
+      return !this.$v.name.$invalid &&
+             !this.$v.description.$invalid &&
+             !this.$v.budget.$invalid &&
+             !this.$v.pay.$invalid;
+    },
+  },
+  validations: {
+    name: {
+      required,
+    },
+    description: {
+      required,
+    },
+    budget: {
+      required,
+    },
+    pay: {
+      required,
+    },
   },
   methods: {
     submit() {
-      this.$emit('submiting', this.project);
-      this.name = '';
-      this.description = '';
-      this.budget = '';
-      this.pay = '';
+      if (this.isValid) {
+        this.$emit('submiting', this.project);
+        this.name = '';
+        this.description = '';
+        this.budget = '';
+        this.pay = '';
+        this.errors = false;
+      } else {
+        this.errors = true;
+      }
     },
   },
 };
@@ -74,5 +114,12 @@ export default {
 <style scoped>
 #marginLeft {
   margin-left: 2em;
+}
+.errorMessage {
+  color: red;
+  display: inline-block;
+}
+.last {
+  margin-left: 4em;
 }
 </style>
