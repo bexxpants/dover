@@ -15,7 +15,7 @@
       </sui-modal-actions>
     </sui-modal>
 
-    <projectsCreated :projects=projects id="projectList"/>
+    <projectsCreated :projects=projects v-on:projectDeleted="fetch" id="projectList"/>
   </div>
 </template>
 
@@ -43,12 +43,12 @@ export default {
       this.open = !this.open;
     },
     submit(data) {
-      this.axios.post('http://localhost:8081/api/projects', {
+      this.axios.post('projects', {
         project: data,
       }).then(() => this.toggle()).then(() => this.fetch());
     },
     fetch() {
-      this.axios.get('http://localhost:8081/api/projects')
+      this.axios.get('projects')
         .then((res) => {
           this.projects = res.data.projects;
         });

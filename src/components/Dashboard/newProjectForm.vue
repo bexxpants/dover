@@ -62,6 +62,10 @@ export default {
   methods: {
     submit() {
       this.$emit('submiting', this.project);
+      this.name = '';
+      this.description = '';
+      this.budget = '';
+      this.pay = '';
     },
   },
 };
