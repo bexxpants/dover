@@ -102,7 +102,7 @@ export default {
           },
         })
           .then(res => this.$store.dispatch('login', res.data.user))
-          .then(() => this.$router.push('/dashboard'))
+          .then(() => this.$router.push('/initialbio'))
           .catch((err) => { this.error = err.response.data.errors; });
       } else {
         this.error = {};
