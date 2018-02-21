@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sui-input placeholder="Search..." icon="search" v-model="searchTerm"/>
+    <sui-input placeholder="Search..." icon="search" v-model="searchTerm" id="search-bar"/>
     <sui-card-group :items-per-row="3">
       <sui-card v-for="project in projectsFiltered" :key="project._id">
         <sui-card-content>
@@ -41,7 +41,7 @@ export default {
         });
     },
     searchingFor(term) {
-      let termL = term.toLowerCase();
+      const termL = term.toLowerCase();
       return x =>
         x.name.toLowerCase().includes(termL) ||
         x.description.toLowerCase().includes(termL) || !term;
@@ -49,3 +49,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#search-bar {
+  margin-bottom: 5em;
+}
+</style>
