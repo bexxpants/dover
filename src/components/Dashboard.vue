@@ -2,6 +2,12 @@
   <div is="sui-container" fluid>
     <div class="ui top attached tabular menu">
       <router-link
+        to="/dashboard/bio"
+        class="item"
+        active-class="active">
+        Bio
+      </router-link>
+      <router-link
         to="/dashboard/projects"
         class="item"
         active-class="active">

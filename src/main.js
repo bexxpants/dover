@@ -14,7 +14,6 @@ import setAuthorizationHeader from './utils/setAuthorizationHeader';
 Vue.config.productionTip = false;
 Vue.use(SuiVue);
 Vue.use(VueAxios, axios);
-Vue.axios.defaults.baseURL = 'http://localhost:8081/api/';
 Vue.use(Vuelidate);
 
 if (localStorage.doverToken) {
