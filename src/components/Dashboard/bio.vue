@@ -3,7 +3,7 @@
     <sui-grid>
       <sui-grid-column :width="3">
           <sui-image
-         v-bind:src="userinfo[0].imgSrc"
+         v-bind:src="imgSrc"
          shape="circular"
          size="small" /><br />
          <sui-button @click.native="toggle" size="tiny" color="teal">Edit Info</sui-button>
@@ -14,20 +14,21 @@
                <sui-button floated="right" @click.native="toggle" icon="remove"/>
            </sui-modal-header>
            <sui-modal-content>
-             <editBio v-on:submiting="submit"></editBio>
+             <editBio :userdata="userinfo"
+                      v-on:submiting="submit"></editBio>
            </sui-modal-content>
           </sui-modal>
         </sui-grid-column>
         <sui-grid-column :width="9">
           <sui-segment>
           <sui-header size="medium">
-            {{ [0].firstName }} {{ userinfo[0].lastName}}
+            {{ userinfo.firstName }} {{ userinfo.lastName}}
           </sui-header>
           <sui-header size="small">
-            {{ userinfo[0].companyName }}
+            {{ userinfo.companyName }}
           </sui-header>
           <p>
-            {{ userinfo[0].about }}
+            {{ userinfo.about }}
           </p>
           </sui-segment>
           <sui-header size="small">
@@ -37,28 +38,31 @@
             <sui-header size="tiny">
               Portfolio:
             </sui-header>
-            <a v-bind:href="userinfo[0].portfolioLink"> {{ userinfo[0].portfolioLink }}</a><br>
+            <a v-bind:href="userinfo.portfolioLink"> {{ userinfo.portfolioLink }}</a><br>
             <sui-icon name="mail"></sui-icon>
             <a v-bind:href="'mailto:' + userinfo.email" target="_blank">
-              {{ userinfo[0].email }}
+              {{ userinfo.email }}
             </a><br>
             <sui-icon name="github"></sui-icon>
             <a v-bind:href="'http://www.github.com/' + userinfo.githubUsername" target="_blank">
-              {{ userinfo[0].githubUsername }}
+              {{ userinfo.githubUsername }}
             </a><br>
             <sui-icon name="twitter" target="_blank"></sui-icon>
-            <a v-bind:href="'http://www.twitter.com/' + userinfo[0].twitterUsername" target="_blank">
-              {{ userinfo[0].twitterUsername }}
+            <a v-bind:href="'http://www.twitter.com/' + userinfo.twitterUsername" target="_blank">
+              {{ userinfo.twitterUsername }}
+            </a><br>
+            <sui-icon name="linkedin" target="_blank"></sui-icon>
+            <a v-bind:href="'http://www.twitter.com/' + userinfo.linkedinUsername" target="_blank">
+              {{ userinfo.linkedinUsername }}
             </a>
           </sui-segment>
         </sui-grid-column>
       <sui-grid-column :width="3">
-          {{ userinfo[0].numberOfProjects }}
+          {{ userinfo.numberOfProjects }}
           projects completed
         </sui-grid-column>
       </sui-grid>
-
-    </sui-container>
+  </sui-container>
 
 </template>
 
@@ -70,7 +74,9 @@ export default {
   data() {
     return {
       open: false,
-      userinfo: [],
+      imgSrc: 'https://exelord.github.io/ember-initials/images/default-d5f51047d8bd6327ec4a74361a7aae7f.jpg',
+      userinfo: {},
+
     };
   },
   created() {
@@ -86,14 +92,13 @@ export default {
     fetch() {
       this.axios.get('bio')
         .then((res) => {
-          this.userinfo = res.data.userinfo;
-          window.console.log(this.userinfo);
+          this.userinfo = res.data.userinfo[0];
         });
     },
     submit(data) {
-      this.axios.post('bio', {
+      this.axios.put('bio/edit', {
         userinfo: data,
-      }).then(() => this.toggle()).then(() => this.fetch());
+      }).then(this.toggle()).then(() => this.toggle());
     },
   },
 };
