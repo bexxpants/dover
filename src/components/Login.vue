@@ -92,7 +92,7 @@ export default {
   methods: {
     submit() {
       if (this.isValid) {
-        this.axios.post('auth', {
+        this.axios.post('/api/auth', {
           credentials: {
             email: this.email,
             password: this.password,

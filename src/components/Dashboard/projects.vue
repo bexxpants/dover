@@ -43,12 +43,12 @@ export default {
       this.open = !this.open;
     },
     submit(data) {
-      this.axios.post('projects', {
+      this.axios.post('/api/projects', {
         project: data,
       }).then(() => this.toggle()).then(() => this.fetch());
     },
     fetch() {
-      this.axios.get('projects')
+      this.axios.get('/api/projects')
         .then((res) => {
           this.projects = res.data.projects;
         });

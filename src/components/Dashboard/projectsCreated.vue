@@ -56,7 +56,7 @@ export default {
       this.id = id;
     },
     deleteProject(id) {
-      this.axios.post('projects/delete', { id })
+      this.axios.post('/api/projects/delete', { id })
         .then(() => this.$emit('projectDeleted'))
         .then(() => this.toggle(''));
     },
