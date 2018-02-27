@@ -98,7 +98,8 @@ export default {
     submit(data) {
       this.axios.put('/api/bio/edit', {
         userinfo: data,
-      }).then(this.toggle()).then(() => this.toggle());
+      })
+        .then(() => this.toggle());
     },
   },
 };
