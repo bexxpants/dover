@@ -178,7 +178,13 @@ export default {
     submit() {
       if (this.isValid) {
         this.axios.post('bio', { userinfo: this.userInfo })
-          .then(() => this.$router.push('/dashboard/'));
+          .then(() => this.$router.push('/dashboard/'))
+          .catch((err) => {
+            window.console.error(err);
+            this.errors = true;
+          });
+      } else {
+        this.errors = true;
       }
     },
     uploadImage(e) {

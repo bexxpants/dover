@@ -3,9 +3,9 @@
     <sui-grid>
       <sui-grid-column :width="3">
           <sui-image
-         v-bind:src="userinfo[0].imgSrc"
-         shape="circular"
-         size="small" /><br />
+            v-bind:src="userinfo[0].imgSrc"
+            shape="circular"
+            size="small" />
          <sui-button @click.native="toggle" size="tiny" color="teal">Edit Info</sui-button>
          <sui-button size="tiny" color="orange">Public Page</sui-button>
          <sui-modal v-model="open">
@@ -84,16 +84,18 @@ export default {
       this.open = !this.open;
     },
     fetch() {
-      this.axios.get('bio')
+      this.axios.get('/api/bio')
         .then((res) => {
           this.userinfo = res.data.userinfo;
           window.console.log(this.userinfo);
         });
     },
     submit(data) {
-      this.axios.post('bio', {
+      this.axios.post('/api/bio', {
         userinfo: data,
-      }).then(() => this.toggle()).then(() => this.fetch());
+      })
+        .then(() => this.toggle())
+        .then(() => this.fetch());
     },
   },
 };
