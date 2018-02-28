@@ -1,8 +1,23 @@
 <template>
-  <div>
-    <sui-input placeholder="Search..." icon="search" v-model="searchTerm" id="search-bar"/>
-    <sui-card-group :items-per-row="3">
-      <sui-card v-for="project in projectsFiltered" :key="project._id">
+  <div class="ui grid">
+    <div class="four wide column">
+      <sui-input placeholder="Search..." icon="search" v-model="searchTerm" id="search-bar"/>
+      <sui-dropdown
+        fluid
+        :floating="true"
+        :options="skills"
+        placeholder="Skills"
+        selection
+        multiple
+        search
+        v-model="skillsToFilter"
+      />
+    </div>
+    <div class="twelve wide column">
+      <sui-label v-for="skill in this.skillsToFilter" :key="skill" color="green">
+        {{ skill }}
+      </sui-label>
+      <sui-card v-for="project in projectsFilteredBySkills" :key="project._id" class="fluid">
         <sui-card-content>
           <sui-card-header>
             {{project.name}}
@@ -11,40 +26,61 @@
           <sui-card-meta>{{project.budget}}</sui-card-meta>
           <sui-card-description>{{project.description}}</sui-card-description>
         </sui-card-content>
+        <sui-card-content extra>
+          <sui-label v-for="skill in project.skills" :key="skill">
+            {{ skill }}
+          </sui-label>
+        </sui-card-content>
       </sui-card>
-    </sui-card-group>
+    </div>
   </div>
 </template>
 
 <script>
+import skillsList from './skills';
+
 export default {
   name: 'search',
   data() {
     return {
       projects: [],
       searchTerm: '',
+      skillsToFilter: [],
+      skills: skillsList,
     };
   },
   created() {
     this.fetch();
   },
   computed: {
-    projectsFiltered() {
+    projectsFilteredByTerms() {
       return this.projects.filter(this.searchingFor(this.searchTerm));
+    },
+    projectsFilteredBySkills() {
+      return this.projectsFilteredByTerms.filter(
+        this.searchingSkills(this.skillsToFilter),
+      );
     },
   },
   methods: {
     fetch() {
-      this.axios.get('/api/projects/all')
-        .then((res) => {
-          this.projects = res.data.projects;
-        });
+      this.axios.get('/api/projects/all').then(res => {
+        this.projects = res.data.projects;
+      });
     },
     searchingFor(term) {
       const termL = term.toLowerCase();
       return x =>
         x.name.toLowerCase().includes(termL) ||
-        x.description.toLowerCase().includes(termL) || !term;
+        x.description.toLowerCase().includes(termL) ||
+        !term;
+    },
+    searchingSkills(skills) {
+      window.console.log(skills.length);
+      if (skills.length === 0) {
+        return x => skills;
+      }
+      return x => x.skills.some(skill => skills.includes(skill));
     },
   },
 };
