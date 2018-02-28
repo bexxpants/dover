@@ -64,23 +64,25 @@ export default {
   },
   methods: {
     fetch() {
-      this.axios.get('/api/projects/all').then(res => {
+      this.axios.get('/api/projects/all').then((res) => {
         this.projects = res.data.projects;
       });
     },
     searchingFor(term) {
       const termL = term.toLowerCase();
-      return x =>
+      // eslint-disable-next-line
+      return (x) =>
         x.name.toLowerCase().includes(termL) ||
         x.description.toLowerCase().includes(termL) ||
         !term;
     },
     searchingSkills(skills) {
-      window.console.log(skills.length);
       if (skills.length === 0) {
-        return x => skills;
+        // eslint-disable-next-line
+        return (x) => x.skills;
       }
-      return x => x.skills.some(skill => skills.includes(skill));
+      // eslint-disable-next-line
+      return (x) => x.skills.some((skill) => skills.includes(skill));
     },
   },
 };
