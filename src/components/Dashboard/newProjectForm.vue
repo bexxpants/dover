@@ -20,6 +20,21 @@
             Project's description is required
           </span>
         </sui-form-field>
+        <sui-form-field>
+          <label>Select some skills needed</label>
+          <sui-dropdown
+            fluid
+            multiple
+            :options="skills"
+            placeholder="Skills"
+            selection
+            search
+            v-model="skillsSelected"
+          />
+          <span class="errorMessage" v-if="errors && !$v.skillsSelected.required">
+            Add one skill at least
+          </span>
+        </sui-form-field>
         <sui-form-field class="inline">
           <label>Estimated budget</label>
           <select v-model="budget" class="ui fluid dropdown">
@@ -43,7 +58,7 @@
           </span>
         </sui-form-field>
         <sui-button positive @click.native="submit">
-          Publish project
+          Done
         </sui-button>
       </sui-form>
     </sui-grid-column>
@@ -52,6 +67,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import skillsList from '@/components/Dashboard/skills';
 
 export default {
   name: 'newProjectForm',
@@ -61,8 +77,23 @@ export default {
       description: '',
       budget: '',
       pay: '',
+      skillsSelected: [],
       errors: false,
+      skills: skillsList,
     };
+  },
+  updated() {
+    if (
+      this.$store.state.projectToEdit.name &&
+      this.$store.state.editingProject
+    ) {
+      this.name = this.$store.state.projectToEdit.name;
+      this.description = this.$store.state.projectToEdit.description;
+      this.budget = this.$store.state.projectToEdit.budget;
+      this.pay = this.$store.state.projectToEdit.pay;
+      this.skillsSelected = this.$store.state.projectToEdit.skills;
+      this.$store.dispatch('projectEdited');
+    }
   },
   computed: {
     project() {
@@ -71,13 +102,17 @@ export default {
         description: this.description,
         budget: this.budget,
         pay: this.pay,
+        skills: this.skillsSelected,
       };
     },
     isValid() {
-      return !this.$v.name.$invalid &&
-             !this.$v.description.$invalid &&
-             !this.$v.budget.$invalid &&
-             !this.$v.pay.$invalid;
+      return (
+        !this.$v.name.$invalid &&
+        !this.$v.description.$invalid &&
+        !this.$v.budget.$invalid &&
+        !this.$v.pay.$invalid &&
+        !this.$v.skillsSelected.$invalid
+      );
     },
   },
   validations: {
@@ -93,6 +128,9 @@ export default {
     pay: {
       required,
     },
+    skillsSelected: {
+      required,
+    },
   },
   methods: {
     submit() {
@@ -102,6 +140,7 @@ export default {
         this.description = '';
         this.budget = '';
         this.pay = '';
+        this.skillsSelected = [];
         this.errors = false;
       } else {
         this.errors = true;

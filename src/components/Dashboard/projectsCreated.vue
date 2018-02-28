@@ -6,7 +6,10 @@
         {{project.name}}
         <sui-dropdown icon="options" id="optionsButton" :options="[]">
           <sui-dropdown-menu>
-            <sui-button fluid @click.native="toggle(project._id)" icon="trash">
+            <sui-button fluid @click.native="toggleEdit(project, project._id)" icon="edit">
+              Edit
+            </sui-button>
+            <sui-button fluid @click.native="toggleDelete(project._id)" icon="trash">
               Delete
             </sui-button>
           </sui-dropdown-menu>
@@ -16,10 +19,16 @@
       <sui-card-meta>{{project.budget}}</sui-card-meta>
       <sui-card-description>{{project.description}}</sui-card-description>
     </sui-card-content>
+    <sui-card-content extra>
+      <sui-label v-for="skill in project.skills" :key="skill">
+        {{ skill }}
+      </sui-label>
+    </sui-card-content>
   </sui-card>
-  <sui-modal v-model="open" size="tiny" closable>
+
+  <sui-modal v-model="openDelete" size="tiny" closable>
     <sui-modal-header>Are you sure?
-      <sui-button floated="right" @click.native="toggle('')" icon="remove" />
+      <sui-button floated="right" @click.native="toggleDelete('')" icon="remove" />
     </sui-modal-header>
     <sui-modal-content >
       <sui-modal-description>
@@ -32,15 +41,27 @@
       </sui-button>
     </sui-modal-actions>
   </sui-modal>
+
+  <sui-modal v-model="openEdit" size="large" closable>
+    <sui-modal-header>Edit project
+      <sui-button floated="right" @click.native="closeEdit" icon="remove" />
+    </sui-modal-header>
+    <sui-modal-content >
+      <newProjectForm v-on:submiting="submit"/>
+    </sui-modal-content>
+  </sui-modal>
 </sui-card-group>
 </template>
 
 <script>
+import newProjectForm from './newProjectForm';
+
 export default {
   name: 'projectsCreated',
   data() {
     return {
-      open: false,
+      openDelete: false,
+      openEdit: false,
       id: '',
     };
   },
@@ -51,15 +72,39 @@ export default {
     },
   },
   methods: {
-    toggle(id) {
-      this.open = !this.open;
+    toggleDelete(id) {
+      this.openDelete = !this.openDelete;
       this.id = id;
     },
-    deleteProject(id) {
-      this.axios.post('/api/projects/delete', { id })
-        .then(() => this.$emit('projectDeleted'))
-        .then(() => this.toggle(''));
+    toggleEdit(project, id) {
+      this.openEdit = !this.openEdit;
+      this.id = id;
+      this.$store.dispatch('editProject', project);
     },
+    closeEdit() {
+      this.openEdit = !this.openEdit;
+      this.$store.dispatch('projectEdited');
+    },
+    deleteProject(id) {
+      this.axios
+        .post('/api/projects/delete', { id })
+        .then(() => this.$emit('projectChange'))
+        .then(() => this.toggleDelete(''));
+    },
+    submit(project) {
+      this.axios
+        .put('/api/projects/update', {
+          projectId: this.id,
+          projectToUpdate: project,
+        })
+        .then(() => this.$emit('projectChange'))
+        .then(() => {
+          this.openEdit = !this.openEdit;
+        });
+    },
+  },
+  components: {
+    newProjectForm,
   },
 };
 </script>

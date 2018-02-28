@@ -8,14 +8,18 @@
       </sui-modal-header>
       <sui-modal-content>
         <sui-modal-description>
-          <newProjectForm v-on:submiting="submit"/>
+          <newProjectForm v-on:submiting="submit" />
         </sui-modal-description>
       </sui-modal-content>
       <sui-modal-actions>
       </sui-modal-actions>
     </sui-modal>
 
-    <projectsCreated :projects=projects v-on:projectDeleted="fetch" id="projectList"/>
+    <projectsCreated
+      :projects=projects
+      v-on:projectChange="fetch"
+      id="projectList"
+    />
   </div>
 </template>
 
@@ -29,6 +33,7 @@ export default {
     return {
       open: false,
       projects: [],
+      project: {},
     };
   },
   components: {
@@ -43,15 +48,17 @@ export default {
       this.open = !this.open;
     },
     submit(data) {
-      this.axios.post('/api/projects', {
-        project: data,
-      }).then(() => this.toggle()).then(() => this.fetch());
+      this.axios
+        .post('/api/projects', {
+          project: data,
+        })
+        .then(() => this.toggle())
+        .then(() => this.fetch());
     },
     fetch() {
-      this.axios.get('/api/projects')
-        .then((res) => {
-          this.projects = res.data.projects;
-        });
+      this.axios.get('/api/projects').then((res) => {
+        this.projects = res.data.projects;
+      });
     },
   },
 };
