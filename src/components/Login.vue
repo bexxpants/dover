@@ -92,17 +92,17 @@ export default {
   methods: {
     submit() {
       if (this.isValid) {
-        this.axios.post('/api/auth', {
-          credentials: {
-            email: this.email,
-            password: this.password,
-          },
-        })
+        this.axios
+          .post('/api/auth', {
+            credentials: {
+              email: this.email,
+              password: this.password,
+            },
+          })
           .then((res) => {
             this.$store.dispatch('login', res.data.user);
           })
-          .then(() =>
-            this.$router.push('/dashboard/projects'))
+          .then(() => this.$router.push('/dashboard/projects'))
           .catch((err) => {
             window.console.log(err);
             this.errors = err.response.data.errors;
