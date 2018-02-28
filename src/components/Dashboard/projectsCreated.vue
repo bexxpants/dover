@@ -47,14 +47,14 @@
       <sui-button floated="right" @click.native="closeEdit" icon="remove" />
     </sui-modal-header>
     <sui-modal-content >
-      <newProjectForm v-on:submiting="submit"/>
+      <ProjectForm v-on:submiting="submit"/>
     </sui-modal-content>
   </sui-modal>
 </sui-card-group>
 </template>
 
 <script>
-import newProjectForm from './newProjectForm';
+import ProjectForm from './ProjectForm';
 
 export default {
   name: 'projectsCreated',
@@ -104,7 +104,7 @@ export default {
     },
   },
   components: {
-    newProjectForm,
+    ProjectForm,
   },
 };
 </script>

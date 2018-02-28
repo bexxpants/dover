@@ -8,7 +8,7 @@
       </sui-modal-header>
       <sui-modal-content>
         <sui-modal-description>
-          <newProjectForm v-on:submiting="submit" />
+          <ProjectForm v-on:submiting="submit" />
         </sui-modal-description>
       </sui-modal-content>
       <sui-modal-actions>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import newProjectForm from '@/components/Dashboard/newProjectForm';
+import ProjectForm from '@/components/Dashboard/ProjectForm';
 import projectsCreated from '@/components/Dashboard/projectsCreated';
 
 export default {
@@ -37,7 +37,7 @@ export default {
     };
   },
   components: {
-    newProjectForm,
+    ProjectForm,
     projectsCreated,
   },
   created() {
