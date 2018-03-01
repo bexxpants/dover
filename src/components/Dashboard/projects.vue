@@ -1,5 +1,5 @@
 <template>
-  <div is="sui-container">
+  <sui-container fluid>
     <sui-button @click.native="toggle">Create a project</sui-button>
     <sui-modal v-model="open">
       <sui-modal-header>Create a project
@@ -20,7 +20,7 @@
       v-on:projectChange="fetch"
       id="projectList"
     />
-  </div>
+  </sui-container>
 </template>
 
 <script>

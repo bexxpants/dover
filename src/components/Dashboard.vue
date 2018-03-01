@@ -1,6 +1,6 @@
 <template>
-  <div is="sui-container" fluid>
-    <div class="ui top attached tabular menu">
+  <sui-container fluid>
+    <div class="ui top attached tabular menu" id="menu">
       <router-link
         to="/dashboard/bio"
         class="item"
@@ -26,10 +26,8 @@
         Search
       </router-link>
     </div>
-    <div class="ui bottom attached active tab segment">
-      <router-view></router-view>
-    </div>
-  </div>
+    <router-view></router-view>
+  </sui-container>
 </template>
 
 <script>
@@ -38,5 +36,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#menu {
+  margin-bottom: 2em;
+}
 </style>

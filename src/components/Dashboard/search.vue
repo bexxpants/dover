@@ -1,6 +1,6 @@
 <template>
-  <div class="ui grid stackable">
-    <div class="four wide column">
+  <sui-grid stackable>
+    <sui-grid-column :width="4">
       <sui-input
         placeholder="Search..."
         icon="search"
@@ -36,11 +36,8 @@
         v-model="budgetFilter"
         class="searchItems"
       />
-    </div>
-    <div class="twelve wide column">
-      <sui-label v-for="skill in this.skillsToFilter" :key="skill" color="green">
-        {{ skill }}
-      </sui-label>
+    </sui-grid-column>
+    <sui-grid-column :width="12">
       <sui-card v-for="project in projectsFilteredBySkills" :key="project._id" class="fluid">
         <sui-card-content>
           <sui-card-header>
@@ -56,8 +53,8 @@
           </sui-label>
         </sui-card-content>
       </sui-card>
-    </div>
-  </div>
+    </sui-grid-column>
+  </sui-grid>
 </template>
 
 <script>

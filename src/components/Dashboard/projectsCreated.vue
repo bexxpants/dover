@@ -1,6 +1,6 @@
 <template>
-<sui-card-group :items-per-row="1">
-  <sui-card v-for="project in projects" :key="project._id">
+<sui-card-group :items-per-row="2" stackable>
+  <sui-card v-for="project in projects" :key="project._id" class="raised">
     <sui-card-content>
       <sui-card-header>
         {{project.name}}
