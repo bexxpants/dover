@@ -1,7 +1,12 @@
 <template>
   <div class="ui grid">
     <div class="four wide column">
-      <sui-input placeholder="Search..." icon="search" v-model="searchTerm" id="search-bar"/>
+      <sui-input
+        placeholder="Search..."
+        icon="search"
+        v-model="searchTerm"
+        class="fluid searchItems"
+      />
       <sui-dropdown
         fluid
         :floating="true"
@@ -11,6 +16,25 @@
         multiple
         search
         v-model="skillsToFilter"
+        class="searchItems"
+      />
+      <sui-dropdown
+        fluid
+        :floating="true"
+        :options="payOptions"
+        placeholder="Way to pay"
+        selection
+        v-model="payFilter"
+        class="searchItems"
+      />
+      <sui-dropdown
+        fluid
+        :floating="true"
+        :options="budgetOptions"
+        placeholder="Estimated budget"
+        selection
+        v-model="budgetFilter"
+        class="searchItems"
       />
     </div>
     <div class="twelve wide column">
@@ -46,7 +70,35 @@ export default {
       projects: [],
       searchTerm: '',
       skillsToFilter: [],
+      payFilter: '',
+      budgetFilter: '',
       skills: skillsList,
+      payOptions: [
+        {
+          key: 1,
+          text: 'All',
+          value: '',
+        },
+        {
+          key: 2,
+          text: 'Hourly project',
+          value: 'Hourly project',
+        },
+        {
+          key: 3,
+          text: 'Fixed price project',
+          value: 'Fixed price project',
+        },
+      ],
+      budgetOptions: [
+        { key: 1, text: 'All', value: '' },
+        { key: 2, text: 'Less than USD 50', value: 'Less than USD 50' },
+        { key: 3, text: 'USD 100 - 250', value: 'USD 100 - 250' },
+        { key: 4, text: 'USD 250 - 500', value: 'USD 250 - 500' },
+        { key: 5, text: 'USD 500 - 1000', value: 'USD 500 - 1000' },
+        { key: 6, text: 'USD 1000 - 3000', value: 'USD 1000 - 3000' },
+        { key: 7, text: 'More than USD 3000', value: 'More than USD 3000' },
+      ],
     };
   },
   created() {
@@ -56,8 +108,18 @@ export default {
     projectsFilteredByTerms() {
       return this.projects.filter(this.searchingFor(this.searchTerm));
     },
-    projectsFilteredBySkills() {
+    projectsFilteredByPay() {
       return this.projectsFilteredByTerms.filter(
+        this.searchingPay(this.payFilter),
+      );
+    },
+    projectsFilteredByBudget() {
+      return this.projectsFilteredByPay.filter(
+        this.searchingBudget(this.budgetFilter),
+      );
+    },
+    projectsFilteredBySkills() {
+      return this.projectsFilteredByBudget.filter(
         this.searchingSkills(this.skillsToFilter),
       );
     },
@@ -84,12 +146,20 @@ export default {
       // eslint-disable-next-line
       return (x) => x.skills.some((skill) => skills.includes(skill));
     },
+    searchingPay(pay) {
+      // eslint-disable-next-line
+      return (x) => x.pay.includes(pay);
+    },
+    searchingBudget(budget) {
+      // eslint-disable-next-line
+      return (x) => x.budget.includes(budget);
+    },
   },
 };
 </script>
 
 <style scoped>
-#search-bar {
+.searchItems {
   margin-bottom: 5em;
 }
 </style>
