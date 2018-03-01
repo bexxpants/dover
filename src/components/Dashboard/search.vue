@@ -1,5 +1,5 @@
 <template>
-  <div class="ui grid">
+  <div class="ui grid stackable">
     <div class="four wide column">
       <sui-input
         placeholder="Search..."
@@ -160,6 +160,6 @@ export default {
 
 <style scoped>
 .searchItems {
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 </style>
