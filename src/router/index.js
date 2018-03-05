@@ -7,6 +7,7 @@ import SignUp from '@/components/SignUp';
 import Dashboard from '@/components/Dashboard';
 import bio from '@/components/Dashboard/bio';
 import projects from '@/components/Dashboard/projects';
+import proposals from '@/components/Dashboard/proposals';
 import messages from '@/components/Dashboard/messages';
 import search from '@/components/Dashboard/search';
 import InitialBio from '@/components/InitialBio';
@@ -43,12 +44,19 @@ export default new Router({
       component: Dashboard,
       beforeEnter: Guard.auth,
       children: [
-        { path: 'bio',
+        {
+          path: 'bio',
           component: bio,
         },
         {
           path: 'projects',
           component: projects,
+          children: [
+            {
+              path: 'proposals',
+              component: proposals,
+            },
+          ],
         },
         {
           path: 'messages',

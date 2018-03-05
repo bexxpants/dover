@@ -23,6 +23,9 @@
       <sui-label v-for="skill in project.skills" :key="skill">
         {{ skill }}
       </sui-label>
+      <sui-button @click.native="toggleProposals(project._id)" icon="briefcase" floated="right">
+        Proposals
+      </sui-button>
     </sui-card-content>
   </sui-card>
 
@@ -50,6 +53,19 @@
       <ProjectForm v-on:submiting="submit"/>
     </sui-modal-content>
   </sui-modal>
+
+   <sui-modal v-model="openProposals" size="large" closable>
+    <sui-modal-header>Proposals
+      <sui-button floated="right" @click.native="closeProposals" icon="remove" />
+    </sui-modal-header>
+    <sui-modal-content >
+      <sui-modal-description>
+        <router-view :projectId="this.id"></router-view>
+      </sui-modal-description>
+    </sui-modal-content>
+    <sui-modal-actions>
+    </sui-modal-actions>
+  </sui-modal>
 </sui-card-group>
 </template>
 
@@ -62,6 +78,7 @@ export default {
     return {
       openDelete: false,
       openEdit: false,
+      openProposals: false,
       id: '',
     };
   },
@@ -80,6 +97,15 @@ export default {
       this.openEdit = !this.openEdit;
       this.id = id;
       this.$store.dispatch('editProject', project);
+    },
+    toggleProposals(id) {
+      this.openProposals = !this.openProposals;
+      this.id = id;
+      this.$router.push('/dashboard/projects/proposals');
+    },
+    closeProposals() {
+      this.openProposals = !this.openProposals;
+      this.$router.push('/dashboard/projects');
     },
     closeEdit() {
       this.openEdit = !this.openEdit;

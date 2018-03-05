@@ -1,4 +1,5 @@
 <template>
+<div>
   <sui-grid stackable>
     <sui-grid-column :width="4">
       <sui-input
@@ -42,6 +43,14 @@
         <sui-card-content>
           <sui-card-header>
             {{project.name}}
+            <sui-card-content extra>
+              <sui-button
+                @click.native="addProposal(project._id)"
+                floated="right"
+              >
+                Make proposal
+              </sui-button>
+            </sui-card-content>
           </sui-card-header>
           <sui-card-meta>{{project.pay}}</sui-card-meta>
           <sui-card-meta>{{project.budget}}</sui-card-meta>
@@ -55,15 +64,37 @@
       </sui-card>
     </sui-grid-column>
   </sui-grid>
+  <sui-modal v-model="openProposalForm">
+      <sui-modal-header>
+        Make a proposal
+        <sui-button
+          floated="right"
+          @click.native="closeProposal"
+          icon="remove"
+        >
+        </sui-button>
+      </sui-modal-header>
+      <sui-modal-content>
+        <sui-modal-description>
+          <ProposalForm v-on:submitProposal="submit"/>
+        </sui-modal-description>
+      </sui-modal-content>
+      <sui-modal-actions>
+      </sui-modal-actions>
+    </sui-modal>
+</div>
 </template>
 
 <script>
+import ProposalForm from './ProposalForm';
 import skillsList from './skills';
 
 export default {
   name: 'search',
   data() {
     return {
+      openProposalForm: false,
+      projectId: '',
       projects: [],
       searchTerm: '',
       skillsToFilter: [],
@@ -100,6 +131,9 @@ export default {
   },
   created() {
     this.fetch();
+  },
+  components: {
+    ProposalForm,
   },
   computed: {
     projectsFilteredByTerms() {
@@ -150,6 +184,23 @@ export default {
     searchingBudget(budget) {
       // eslint-disable-next-line
       return (x) => x.budget.includes(budget);
+    },
+    addProposal(id) {
+      this.openProposalForm = !this.openProposalForm;
+      this.projectId = id;
+    },
+    closeProposal() {
+      this.openProposalForm = false;
+    },
+    submit(data) {
+      this.axios
+        .post('/api/proposals', {
+          proposal: {
+            ...data,
+            projectId: this.projectId,
+          },
+        })
+        .then(() => this.closeProposal());
     },
   },
 };
