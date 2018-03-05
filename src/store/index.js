@@ -9,11 +9,16 @@ const LOGIN_USER = 'LOGIN_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 const EDITING_PROJECT = 'EDITING_PROJECT';
 const PROJECT_EDITED = 'PROJECT_EDITED';
+const VIEW_PROPOSALS = 'VIEW_PROPOSALS';
+const CLOSE_PROPOSALS = 'CLOSE_PROPOSALS';
 
 const state = {
   isLogged: !!localStorage.getItem('doverToken'),
   editingProject: false,
   projectToEdit: {},
+  projectId: '',
+  projectName: '',
+  viewingProposals: false,
 };
 
 const mutations = {
@@ -28,6 +33,12 @@ const mutations = {
   },
   [PROJECT_EDITED](state) {
     state.editingProject = false;
+  },
+  [VIEW_PROPOSALS](state) {
+    state.viewingProposals = true;
+  },
+  [CLOSE_PROPOSALS](state) {
+    state.viewingProposals = false;
   },
 };
 
@@ -48,6 +59,14 @@ const actions = {
   },
   projectEdited({ commit }) {
     commit(PROJECT_EDITED);
+  },
+  viewProposals({ commit }, data) {
+    state.projectId = data.id;
+    state.projectName = data.name;
+    commit(VIEW_PROPOSALS);
+  },
+  closeProposals({ commit }) {
+    commit(CLOSE_PROPOSALS);
   },
 };
 

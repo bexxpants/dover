@@ -23,7 +23,11 @@
       <sui-label v-for="skill in project.skills" :key="skill">
         {{ skill }}
       </sui-label>
-      <sui-button @click.native="toggleProposals(project._id)" icon="briefcase" floated="right">
+      <sui-button
+        @click.native="toggleProposals(project._id, project.name)"
+        icon="briefcase"
+        floated="right"
+      >
         Proposals
       </sui-button>
     </sui-card-content>
@@ -55,12 +59,12 @@
   </sui-modal>
 
    <sui-modal v-model="openProposals" size="large" closable>
-    <sui-modal-header>Proposals
+    <sui-modal-header><small>Proposals for</small> {{ this.$store.state.projectName }}
       <sui-button floated="right" @click.native="closeProposals" icon="remove" />
     </sui-modal-header>
     <sui-modal-content >
       <sui-modal-description>
-        <router-view :projectId="this.id"></router-view>
+        <router-view></router-view>
       </sui-modal-description>
     </sui-modal-content>
     <sui-modal-actions>
@@ -98,13 +102,14 @@ export default {
       this.id = id;
       this.$store.dispatch('editProject', project);
     },
-    toggleProposals(id) {
+    toggleProposals(id, name) {
       this.openProposals = !this.openProposals;
-      this.id = id;
+      this.$store.dispatch('viewProposals', { id, name });
       this.$router.push('/dashboard/projects/proposals');
     },
     closeProposals() {
       this.openProposals = !this.openProposals;
+      this.$store.dispatch('closeProposals');
       this.$router.push('/dashboard/projects');
     },
     closeEdit() {
